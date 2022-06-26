@@ -1,20 +1,18 @@
 extends Node
 
-func _unhandled_input(event):
-	if event.is_action_pressed("ui_right"):
-		print("attempting to login with correct info")
-		Gateway.ConnectToServer("test2", "12121212", false)
-	if event.is_action_pressed("ui_left"):
-		print("attempting to login with incorrect info")
-		Gateway.ConnectToServer("test2", "123", false)
+onready var UI = $UI
 
-	if event.is_action_pressed("ui_up"):
-		Game.FetchAction("skill_damage", "Ice Spear", get_instance_id())
-	if event.is_action_pressed("ui_down"):
-		Game.FetchAction("get_data", "Player Stats")
-		
-	if event.is_action_pressed("ui_page_up"):
-		Gateway.ConnectToServer("test2", "12121212", true)
+func _on_UI_create_button_pressed():
+	Gateway.ConnectToServer(UI.username.text, UI.password.text, true)
+
+
+func _on_UI_login_button_pressed():
+	Gateway.ConnectToServer(UI.username.text, UI.password.text, false)
+
+
+func _on_UI_stats_button_pressed():
+	Game.FetchAction("get_data", "Player Stats")
+
 
 func ReturnAction(action_name, value_name, return_value):
 	print("receiving " + str(return_value) + " from server")
@@ -23,6 +21,7 @@ func ReturnAction(action_name, value_name, return_value):
 			match value_name:
 				"Ice Spear":
 					Game.ice_spear_damage = return_value
+					Attack(Game.ice_spear_damage)
 				_:
 					return
 		"get_data":
@@ -31,3 +30,10 @@ func ReturnAction(action_name, value_name, return_value):
 					Game.player_stats = return_value
 		_:
 			return
+
+func Attack(damage):
+	randomize()
+	var enemies = get_node("/root/Main/Map/YSort/Enemies")
+	if enemies.get_child_count() > 0:
+		var enemy = enemies.get_child(randi() % enemies.get_child_count())
+		enemy.OnHit(damage)

@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Main/UI.gd" type="Script" id=1]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="Stats" type="Button" parent="."]
+margin_left = 606.0
+margin_top = 8.0
+margin_right = 708.0
+margin_bottom = 38.0
+text = "Stats"
+
+[node name="Login" type="Button" parent="."]
+margin_left = 493.0
+margin_top = 368.0
+margin_right = 595.0
+margin_bottom = 398.0
+text = "Login"
+
+[node name="Create" type="Button" parent="."]
+margin_left = 606.0
+margin_top = 368.0
+margin_right = 708.0
+margin_bottom = 398.0
+text = "Create"
+
+[node name="Username" type="TextEdit" parent="."]
+margin_left = 286.0
+margin_top = 369.0
+margin_right = 380.0
+margin_bottom = 397.0
+
+[node name="Password" type="TextEdit" parent="."]
+margin_left = 389.0
+margin_top = 369.0
+margin_right = 482.0
+margin_bottom = 397.0
+
+[connection signal="pressed" from="Stats" to="." method="_on_Stats_pressed"]
+[connection signal="pressed" from="Login" to="." method="_on_Login_pressed"]
+[connection signal="pressed" from="Create" to="." method="_on_Create_pressed"]

@@ -35,6 +35,32 @@ config/icon="res://icon.png"
 Game="*res://Scenes/Singletons/GameClient.gd"
 Gateway="*res://Scenes/Singletons/Gateway.gd"
 
+[display]
+
+window/size/width=720
+window/size/height=405
+
+[input]
+
+Mouse_Move={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+Mouse_Attack={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="enemies"
+2d_physics/layer_3="tilemap"
+2d_physics/layer_4="skills"
+2d_physics/layer_5="tree"
+
 [physics]
 
 common/enable_pause_aware_picking=true
