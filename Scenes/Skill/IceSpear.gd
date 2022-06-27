@@ -20,6 +20,6 @@ func SelfDestruct():
 	queue_free()
 
 
-func _on_IceSpear_body_entered(body):
+func _on_IceSpear_body_entered(_body):
 	$CollisionShape2D.set_deferred("disabled", true)
 	self.hide()
