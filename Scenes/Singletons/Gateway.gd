@@ -2,7 +2,7 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var gateway_api = MultiplayerAPI.new()
-var ip = "127.0.0.1"
+var ip = "192.168.0.19"
 var port = 1910
 var cert = load("res://Resources/Certificate/X509_Certificate.crt")
 
