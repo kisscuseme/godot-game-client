@@ -38,7 +38,6 @@ func Attack():
 			icespear_instance.impulse_rotation = get_angle_to(position + attack_dict[attack]["AnimationVector"])
 			icespear_instance.position = $TurnAxis/Position2D.global_position
 			icespear_instance.direction = attack_dict[attack]["AnimationVector"]
-			icespear_instance.original = false
 			attack_dict.erase(attack)
 			yield(get_tree().create_timer(0.2), "timeout")
 			get_parent().add_child(icespear_instance)

@@ -39,9 +39,8 @@ func HeathBarUpdate():
 	print("Health Bar: ", health_bar, "%")
 	
 
-func OnHit(damage):
-	Game.NPCHit(int(name), damage)
-
-
 func OnDeath():
-	modulate = Color("#555555")	
+	modulate = Color("#555555")
+	z_index = -1
+	yield(get_tree().create_timer(0.2), "timeout")
+	$CollisionShape2D.set_deferred("disabled", true)

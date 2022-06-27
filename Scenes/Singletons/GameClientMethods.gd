@@ -30,10 +30,6 @@ remote func ReturnTokenVerificationResults(result):
 		print("Login failed, please try again")
 
 
-func NPCHit(enemy_id, damage):
-	rpc_id(1, "SendNPCHit", enemy_id, damage)
-
-
 func SendPlayerState(player_state):
 #	print(player_state)
 	rpc_unreliable_id(1, "ReceivePlayerState", player_state)
@@ -52,8 +48,8 @@ remote func DespawnPlayer(player_id):
 	map.DespawnPlayer(player_id)
 
 
-func SendAttack(position, animation_vector):
-	rpc_id(1, "Attack", position, animation_vector, client_clock)
+func SendAttack(position, animation_vector, a_rotation, a_position, a_direction):
+	rpc_id(1, "Attack", position, animation_vector, client_clock, a_rotation, a_position, a_direction)
 
 
 remote func ReceiveAttack(position, animation_vector, spawn_time, player_id):

@@ -87,12 +87,15 @@ func Attack():
 	animation_vector = position.direction_to(get_global_mouse_position()).normalized()
 	animation_tree.set('parameters/Cast/blend_position', animation_vector)
 	animation_tree.set('parameters/Idle/blend_position', animation_vector)
-	Game.SendAttack(position, animation_vector)
 	$TurnAxis.rotation = get_angle_to(get_global_mouse_position())
 	var icespear_instance = icespear.instance()
-	icespear_instance.impulse_rotation = get_angle_to(get_global_mouse_position())
-	icespear_instance.position = $TurnAxis/Position2D.global_position
-	icespear_instance.direction = $TurnAxis/Position2D.global_position.direction_to(get_global_mouse_position())
+	var a_rotation = get_angle_to(get_global_mouse_position())
+	var a_position = $TurnAxis/Position2D.global_position
+	var a_direction = $TurnAxis/Position2D.global_position.direction_to(get_global_mouse_position())
+	Game.SendAttack(position, animation_vector, a_rotation, a_position, a_direction)
+	icespear_instance.impulse_rotation = a_rotation
+	icespear_instance.position = a_position
+	icespear_instance.direction = a_direction
 #	animation_mode.travel("Cast")
 	yield(get_tree().create_timer(0.2), "timeout")
 	get_parent().add_child(icespear_instance)

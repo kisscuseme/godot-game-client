@@ -17,13 +17,6 @@ func _on_UI_stats_button_pressed():
 func ReturnAction(action_name, value_name, return_value):
 	print("receiving " + str(return_value) + " from server")
 	match action_name:
-		"skill_damage":
-			match value_name:
-				"Ice Spear":
-					Game.ice_spear_damage = return_value
-					Attack(Game.ice_spear_damage)
-				_:
-					return
 		"get_data":
 			match value_name:
 				"Player Stats":
