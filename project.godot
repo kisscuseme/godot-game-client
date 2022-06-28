@@ -27,12 +27,12 @@ _global_script_class_icons={
 [application]
 
 config/name="SG Wannabe Game Client"
-run/main_scene="res://Scenes/Main/Main.tscn"
+run/main_scene="res://Scenes/Main/GameClient.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Game="*res://Scenes/Singletons/GameClient.gd"
+GlobalData="*res://Scenes/Singletons/GlobalData.gd"
 Gateway="*res://Scenes/Singletons/Gateway.gd"
 
 [display]

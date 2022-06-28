@@ -1,8 +1,8 @@
 extends GameClientData
 class_name GameClientMethods
 
-onready var main = get_node("/root/Main")
-onready var map = main.get_node("Map")
+onready var game_server = get_node("/root/GameServer")
+onready var map = game_server.get_node("Map")
 onready var player = map.get_node("YSort/Player")
 onready var enemies = map.get_node("YSort/Enemies")
 onready var other_players = map.get_node("YSort/OtherPlayers")
@@ -15,7 +15,14 @@ remote func ReturnAction(action_name, value_name, return_value, requester = null
 	if requester:
 		instance_from_id(requester).ReturnAction(action_name, value_name, return_value)
 	else:
-		main.ReturnAction(action_name, value_name, return_value)
+		print("receiving " + str(return_value) + " from server")
+		match action_name:
+			"get_data":
+				match value_name:
+					"Player Stats":
+						player_stats = return_value
+			_:
+				return
 
 
 remote func FetchToken():

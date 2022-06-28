@@ -15,12 +15,13 @@ var attacking = false
 
 var icespear = preload("res://Scenes/Skill/IceSpear.tscn")
 
+onready var game_server = get_node("/root/GameServer")
 onready var animation_tree = get_node("AnimationTree")
 onready var animation_mode = animation_tree.get("parameters/playback")
 
 func _ready():
 	position = Vector2(100,100)
-	if not Game.skip_auth:
+	if not game_server.skip_auth:
 		set_physics_process(false)
 
 
@@ -79,8 +80,8 @@ func MovementLoop(delta):
 
 
 func DefinePlayerState():
-	player_state = {"T": Game.client_clock, "P": global_position, "A": animation_vector}
-	Game.SendPlayerState(player_state)
+	player_state = {"T": game_server.client_clock, "P": global_position, "A": animation_vector}
+	game_server.SendPlayerState(player_state)
 
 
 func Attack():
@@ -92,7 +93,7 @@ func Attack():
 	var a_rotation = get_angle_to(get_global_mouse_position())
 	var a_position = $TurnAxis/Position2D.global_position
 	var a_direction = $TurnAxis/Position2D.global_position.direction_to(get_global_mouse_position())
-	Game.SendAttack(position, animation_vector, a_rotation, a_position, a_direction)
+	game_server.SendAttack(position, animation_vector, a_rotation, a_position, a_direction)
 	icespear_instance.impulse_rotation = a_rotation
 	icespear_instance.position = a_position
 	icespear_instance.direction = a_direction

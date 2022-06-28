@@ -4,6 +4,7 @@ var icespear = preload("res://Scenes/Skill/IceSpear.tscn")
 var attack_dict = {}
 var state = "Idle"
 
+onready var game_server = get_node("/root/GameServer")
 onready var animation_tree = get_node("AnimationTree")
 onready var animation_mode = animation_tree.get("parameters/playback")
 
@@ -28,7 +29,7 @@ func MovePlayer(new_position, animation_vector):
 
 func Attack():
 	for attack in attack_dict.keys():
-		if attack <= Game.client_clock and attack_dict.has(attack):
+		if attack <= game_server.client_clock and attack_dict.has(attack):
 			state = "Attack"
 			animation_tree.set('parameters/Cast/blend_position', attack_dict[attack]["AnimationVector"])
 #			animation_mode.travel("Cast")

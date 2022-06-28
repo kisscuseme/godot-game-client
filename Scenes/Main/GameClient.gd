@@ -1,9 +1,10 @@
 extends GameClientMethods
 
 var network = NetworkedMultiplayerENet.new()
-var ip = "192.168.0.19"
-var port = 1909
+var ip = GlobalData.server_info["GAME_SERVER_1"]["IP"]
+var port = GlobalData.server_info["GAME_SERVER_1"]["PORT"]
 
+onready var UI = $UI
 
 func _ready():
 	if skip_auth:
@@ -31,10 +32,10 @@ func _OnConnectionSucceeded():
 	timer.autostart = true
 	timer.connect("timeout", self, "DetermineLatency")
 	self.add_child(timer)
-	get_node("/root/Main/Map").Clean()
-	for i in get_node("/root/Main/UI").get_child_count():
+	$Map.Clean()
+	for i in $UI.get_child_count():
 		if i != 0:
-			get_node("/root/Main/UI").get_child(i).visible = false
+			$UI.get_child(i).visible = false
 
 
 func ConnectToServer():
@@ -43,3 +44,23 @@ func ConnectToServer():
 	
 	network.connect("connection_failed", self, "_OnConnectionFailed")
 	network.connect("connection_succeeded", self, "_OnConnectionSucceeded")
+
+
+func _on_UI_create_button_pressed():
+	Gateway.ConnectToServer(UI.username.text, UI.password.text, true)
+
+
+func _on_UI_login_button_pressed():
+	Gateway.ConnectToServer(UI.username.text, UI.password.text, false)
+
+
+func _on_UI_stats_button_pressed():
+	FetchAction("get_data", "Player Stats")
+
+
+func Attack(damage):
+	randomize()
+	var enemies = $Map/YSort/Enemies
+	if enemies.get_child_count() > 0:
+		var enemy = enemies.get_child(randi() % enemies.get_child_count())
+		enemy.OnHit(damage)

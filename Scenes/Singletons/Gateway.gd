@@ -2,13 +2,15 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var gateway_api = MultiplayerAPI.new()
-var ip = "192.168.0.19"
-var port = 1910
+var ip = GlobalData.server_info["GATEWAY"]["IP"]
+var port = GlobalData.server_info["GATEWAY"]["PORT"]
 var cert = load("res://Resources/Certificate/X509_Certificate.crt")
 
 var username
 var password
 var new_account = false
+
+onready var game_server = get_node("/root/GameServer")
 
 func _process(_delta):
 	if self.custom_multiplayer == null:
@@ -54,8 +56,8 @@ func RequestLogin():
 remote func ReturnLoginRequest(results, token):
 	print("results received")
 	if results == true:
-		Game.token = token
-		Game.ConnectToServer()
+		game_server.token = token
+		game_server.ConnectToServer()
 	else:
 		print("Please provide correct username and password")
 	network.disconnect("connection_failed", self, "_OnConnectionFailed")
